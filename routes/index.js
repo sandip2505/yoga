@@ -26,6 +26,9 @@ router.get('/blog2', function(req, res, next) {
 router.get('/blog3', function(req, res, next) {
   res.render('blog3');
 });
+router.get('/email', function(req, res, next) {
+  res.render('email_template');
+});
 
 router.get('/contact', function(req, res, next) {
   res.render('contact');

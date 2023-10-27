@@ -1,5 +1,10 @@
 const nodemailer = require('nodemailer');
 const emailcontroller = {};
+const ejs = require('ejs');
+const fs = require('fs');
+const path = require('path');
+const filePath = path.join(__dirname, './email_template.ejs');
+const htmlContent = fs.readFileSync(filePath, 'utf8');
 
 emailcontroller.sendemail = async (req, res) => {
     const { name, email, subject, message } = req.body;
@@ -7,29 +12,40 @@ emailcontroller.sendemail = async (req, res) => {
     if (!name || !email || !subject || !message || !email.match(/^[A-Za-z0-9+_.-]+@(.+)$/)) {
       return res.sendStatus(500);
     }
-  
+
+    const emailData = {
+      name: name,
+      subject: subject,
+      message: message,
+    };
+    const renderedEmail = ejs.render(htmlContent, emailData);
+
     try {
-      const transporter = nodemailer.createTransport({
-        host: 'mail.codecrewinfotech.com',
-             domain: 'codecrewinfotech.com',
-            //  service: "gmail",
-            port: 465,
-            // secure: true,  
+
+          const transporter = nodemailer.createTransport({
+            service: 'Gmail',
             auth: {
-              user: 'aman.shah@codecrewinfotech.com',
-              pass: 'aNLn?O]}{&ve',
+              user: 'codecrew0@gmail.com',
+              pass: 'qiqz wsjv awfe xkid',
             },
-      });
+          });
+
+          const mailOptions = {
+            from: 'codecrew0@gmail.com',
+            to: email,
+            subject: `${subject}: ${name}`,
+            html: renderedEmail,
+          };
+          
+          const emailSend = await transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.log('Error:', error);
+            } else {
+              console.log('Email sent:', info.response);
+            }
+          });
   
-      const mailOptions = {
-        from: email,
-        to: 'codecrew0@gmail.com', 
-        subject: `${subject}: ${name}`,
-        text: `You have received a new message from your website contact form.\n\nHere are the details:\n\nName: ${name}\n\nEmail: ${email}\n\nSubject: ${subject}\n\nMessage: ${message}`,
-      };
-  
-    const emailSend=  await transporter.sendMail(mailOptions);
-    console.log("emailSend",emailSend)
+
       res.sendStatus(200);
     } catch (error) {
       console.error(error);
