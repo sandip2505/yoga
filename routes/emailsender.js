@@ -15,6 +15,7 @@ emailcontroller.sendemail = async (req, res) => {
 
     const emailData = {
       name: name,
+      email: email,
       subject: subject,
       message: message,
     };

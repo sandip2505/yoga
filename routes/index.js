@@ -27,7 +27,7 @@ router.get('/blog3', function(req, res, next) {
   res.render('blog3');
 });
 router.get('/email', function(req, res, next) {
-  res.render('email_template');
+  res.render('emailtemp');
 });
 
 router.get('/contact', function(req, res, next) {
