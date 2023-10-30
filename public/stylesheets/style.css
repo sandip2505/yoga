@@ -803,7 +803,7 @@ a:focus {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
 }
 
 .discount .container {

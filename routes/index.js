@@ -54,5 +54,28 @@ router.get('/portfolio', function(req, res, next) {
 router.get('/class', function(req, res, next) {
   res.render('class');
 });
+router.get('/heal-emotions', function(req, res, next) {
+  res.render('heal-emotions');
+});
+
+router.get('/breath-work', function(req, res, next) {
+  res.render('breath-work');
+});
+
+router.get('/yoga-therapy', function(req, res, next) {
+  res.render('yoga-therapy');
+});
+
+router.get('/hypnotherapy', function(req, res, next) {
+  res.render('hypnotherapy');
+});
+
+router.get('/inner', function(req, res, next) {
+  res.render('inner');
+});
+
+router.get('/past', function(req, res, next) {
+  res.render('past');
+});
 
 module.exports = router;
